@@ -1,0 +1,3 @@
+/vendor/
+/tests/cache/
+.DS_Store
