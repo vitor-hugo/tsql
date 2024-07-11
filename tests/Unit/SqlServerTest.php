@@ -156,11 +156,19 @@ class SqlServerTest extends TestCase
 
     public function testShouldReturnSqlErrors()
     {
-        self::$db->query("NOT A VALID QUERY STRING");
+        self::$db->query("SELECT names, ages from TestTable");
         $errors = self::$db->getErrors();
         $this->assertIsArray($errors);
-        $this->assertCount(1, $errors);
-        $this->assertTrue(str_contains($errors[0]["message"], "Incorrect syntax"));
+        $this->assertCount(3, $errors);
+
+        foreach ($errors as $error) {
+            $this->assertIsString($error);
+            $this->assertNotEmpty($error);
+        }
+
+        self::$db->query("NOT A VALID QUERY");
+        $errors = self::$db->getErrors();
+        $this->assertStringContainsString("Incorrect syntax", (string) $errors);
     }
 
 
@@ -194,5 +202,8 @@ class SqlServerTest extends TestCase
 
         $structure = self::$db->getTableStructure("TestTable");
         assertFalse($structure);
+
+        $errors = self::$db->getErrors();
+        assertEquals("", $errors);
     }
 }
