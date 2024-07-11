@@ -3,3 +3,5 @@
 /tests/report/
 .DS_Store
 composer.lock
+docs/
+.phpdoc
