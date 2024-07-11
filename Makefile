@@ -7,7 +7,7 @@ help:
 
 start-server:
 	@docker compose up -d
-	@sleep 10
+	@sleep 3
 	@docker exec tsql-mssql bash -c "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P SuperStrongPassword! -i /tmp/create-database.sql"
 	@docker exec tsql-mssql bash -c "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P SuperStrongPassword! -i /tmp/create-table.sql"
 
