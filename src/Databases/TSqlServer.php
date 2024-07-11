@@ -218,6 +218,21 @@ class TSqlServer implements TDatabaseInterface
 
     public function getErrors(): array|string
     {
-        return sqlsrv_errors(SQLSRV_ERR_ERRORS) ?? [];
+        $errors = sqlsrv_errors(SQLSRV_ERR_ERRORS) ?? [];
+
+        if (count($errors) === 0) {
+            return "";
+        }
+
+        if (count($errors) === 1) {
+            return $errors[0]["message"];
+        }
+
+        $messages = [];
+        foreach ($errors as $error) {
+            $messages[] = $error["message"];
+        }
+
+        return $messages;
     }
 }
