@@ -1,3 +1,4 @@
+name: tsql
 services:
   tsql-mssql:
     container_name: tsql-mssql
@@ -5,6 +6,7 @@ services:
     platform: linux/amd64
     stdin_open: true
     tty: true
+    restart: always
     environment:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: "SuperStrongPassword!"
@@ -14,3 +16,51 @@ services:
       - 1433:1433
     volumes:
       - "./docker/sqlserver/:/tmp/"
+    networks:
+      - devnetwork
+
+  tsql-mysql:
+    container_name: tsql-mysql
+    image: mysql:latest
+    platform: linux/amd64
+    stdin_open: true
+    tty: true
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "SuperStrongPassword!"
+      MYSQL_DATABASE: "TestDB"
+    ports:
+      - 3306:3306
+    command:
+      [
+        "mysqld",
+        "--lower_case_table_names=1",
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_0900_ai_ci",
+      ]
+    networks:
+      - devnetwork
+
+  tsql-mariadb:
+    container_name: tsql-mariadb
+    image: mariadb
+    platform: linux/amd64
+    stdin_open: true
+    tty: true
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: "SuperStrongPassword!"
+      MARIADB_DATABASE: "TestDB"
+    ports:
+      - 3307:3306
+    command:
+      [
+        "--lower_case_table_names=1",
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_general_ci",
+      ]
+    networks:
+      - devnetwork
+
+networks:
+  devnetwork:
