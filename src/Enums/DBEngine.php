@@ -4,9 +4,8 @@ namespace Torugo\Sql\Enums;
 
 enum DBEngine
 {
-    case Aurora;
     case MariaDB;
     case MySql;
-    case Postgress;
+    case Postgres;
     case SqlServer;
 }
