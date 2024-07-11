@@ -29,3 +29,12 @@ ifeq ($(shell docker ps --format '{{.Names}}' | grep tsql-mssql), tsql-mssql)
 else
 	@echo "Test server not running, please run 'make start-server'"
 endif
+
+
+REPORT_PATH := $(firstword $(wildcard ./tests/report/html/index.html))
+start-report-server:
+ifeq (,$(REPORT_PATH))
+	@echo "HTML report not found. Please, run 'make test' to generate the coverage page."
+else
+	@php -S localhost\:8000 -t tests/report/html/
+endif
