@@ -24,6 +24,7 @@ interface TDatabaseInterface
      * @param string $database Database name
      * @param string $user Authentication user name
      * @param string $password Authentication password
+     * @param string $characterSet Used by SqlServer engine
      * @return bool
      */
     public function connect(
