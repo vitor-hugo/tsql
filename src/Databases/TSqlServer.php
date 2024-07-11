@@ -35,7 +35,7 @@ class TSqlServer implements TDatabaseInterface
         string $user = "",
         string $password = "",
         string $characterSet = "UTF-8",
-        int $port = 1433
+        ?int $port = 1433
     ): bool {
         $connectionParams = [
             "Database" => $database,
@@ -48,6 +48,7 @@ class TSqlServer implements TDatabaseInterface
             "TrustServerCertificate" => "1",
         ];
 
+        $port ??= 1433;
         $this->connection = sqlsrv_connect("$address, $port", $connectionParams);
 
         return $this->isConnected();

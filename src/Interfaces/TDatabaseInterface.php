@@ -34,7 +34,7 @@ interface TDatabaseInterface
         string $user = "",
         string $password = "",
         string $characterSet = "UTF-8",
-        int $port = 0
+        ?int $port = null
     ): bool;
 
 
