@@ -15,6 +15,13 @@
         </testsuite>
     </testsuites>
 
+    <coverage>
+        <report>
+            <clover outputFile="./tests/report/clover.xml"/>
+            <html outputDirectory="./tests/report/html"/>
+        </report>
+    </coverage>
+
     <source ignoreIndirectDeprecations="true"
             restrictNotices="true"
             restrictWarnings="true">
