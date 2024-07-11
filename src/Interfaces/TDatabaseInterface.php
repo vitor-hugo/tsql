@@ -25,6 +25,7 @@ interface TDatabaseInterface
      * @param string $user Authentication user name
      * @param string $password Authentication password
      * @param string $characterSet Used by SqlServer engine
+     * @param int $port Port number
      * @return bool
      */
     public function connect(
@@ -32,7 +33,8 @@ interface TDatabaseInterface
         string $database,
         string $user = "",
         string $password = "",
-        string $characterSet = "UTF-8"
+        string $characterSet = "UTF-8",
+        int $port = 0
     ): bool;
 
 
