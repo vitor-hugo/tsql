@@ -4,8 +4,6 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Torugo\Sql\Databases\TSqlServer;
-use function PHPUnit\Framework\assertEquals;
-use function PHPUnit\Framework\assertFalse;
 
 #[Group("Unit")]
 #[Group("SqlServer")]
@@ -183,27 +181,27 @@ class SqlServerTest extends TestCase
     public function testShouldReturnFalseEmptyOrZeroWhenNotConnected()
     {
         $result = self::$db->query("SELECT id, name, age FROM TestTable");
-        assertFalse($result);
+        $this->assertFalse($result);
 
         $numRows = self::$db->numRows();
-        assertEquals(0, $numRows);
+        $this->assertEquals(0, $numRows);
 
         $arr = self::$db->fetchArray();
-        assertEquals([], $arr);
+        $this->assertEquals([], $arr);
 
         $arr = self::$db->fetchAll();
-        assertEquals([], $arr);
+        $this->assertEquals([], $arr);
 
         $exists = self::$db->tableExists("TestTable");
-        assertFalse($exists);
+        $this->assertFalse($exists);
 
         $exists = self::$db->fieldExists("name", "TestTable");
-        assertFalse($exists);
+        $this->assertFalse($exists);
 
         $structure = self::$db->getTableStructure("TestTable");
-        assertFalse($structure);
+        $this->assertFalse($structure);
 
         $errors = self::$db->getErrors();
-        assertEquals("", $errors);
+        $this->assertEquals("", $errors);
     }
 }
