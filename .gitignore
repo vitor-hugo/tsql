@@ -1,5 +1,6 @@
 /vendor/
 /tests/cache/
+/tests/logs/
 /tests/report/
 .DS_Store
 composer.lock
