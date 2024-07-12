@@ -223,7 +223,7 @@ class TSqlServer implements TDatabaseInterface
         $errors = sqlsrv_errors(SQLSRV_ERR_ERRORS) ?? [];
 
         if (count($errors) === 0) {
-            return "";
+            return [];
         }
 
         if (count($errors) === 1) {
@@ -235,6 +235,6 @@ class TSqlServer implements TDatabaseInterface
             $messages[] = $error["message"];
         }
 
-        return $messages;
+        return count($messages) === 1 ? $messages[0] : $messages;
     }
 }

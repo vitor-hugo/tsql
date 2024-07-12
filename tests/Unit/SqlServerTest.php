@@ -202,6 +202,6 @@ class SqlServerTest extends TestCase
         $this->assertFalse($structure);
 
         $errors = self::$db->getErrors();
-        $this->assertEquals("", $errors);
+        $this->assertEquals([], $errors);
     }
 }
