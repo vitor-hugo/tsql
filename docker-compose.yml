@@ -15,7 +15,7 @@ services:
     ports:
       - 1433:1433
     volumes:
-      - "./docker/sqlserver/:/tmp/"
+      - "./docker/sqlserver/:/tmp/sqlserver"
     networks:
       - devnetwork
 
@@ -27,8 +27,12 @@ services:
     tty: true
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: "SuperStrongPassword!"
-      MYSQL_DATABASE: "TestDB"
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: TestDB
+      MYSQL_USER: super
+      MYSQL_PASSWORD: 12345
+      MYSQL_ONETIME_PASSWORD:
+      MYSQL_RANDOM_ROOT_PASSWORD: no
     ports:
       - 3306:3306
     command:
@@ -38,19 +42,21 @@ services:
         "--character-set-server=utf8mb4",
         "--collation-server=utf8mb4_0900_ai_ci",
       ]
+    volumes:
+      - "./docker/mysql/:/tmp/mysql"
     networks:
       - devnetwork
 
   tsql-mariadb:
     container_name: tsql-mariadb
-    image: mariadb
+    image: mariadb:latest
     platform: linux/amd64
     stdin_open: true
     tty: true
     restart: always
     environment:
-      MARIADB_ROOT_PASSWORD: "SuperStrongPassword!"
-      MARIADB_DATABASE: "TestDB"
+      MARIADB_ROOT_PASSWORD: 12345
+      MARIADB_DATABASE: TestDB
     ports:
       - 3307:3306
     command:
@@ -58,7 +64,28 @@ services:
         "--lower_case_table_names=1",
         "--character-set-server=utf8mb4",
         "--collation-server=utf8mb4_general_ci",
+        "--default-authentication-plugin=mysql_native_password",
       ]
+    volumes:
+      - "./docker/mysql/:/tmp/mysql"
+    networks:
+      - devnetwork
+
+  tsql-postgres:
+    container_name: tsql-postgres
+    image: postgres:latest
+    platform: linux/amd64
+    stdin_open: true
+    tty: true
+    restart: always
+    environment:
+      POSTGRES_USER: "super"
+      POSTGRES_PASSWORD: "SuperStrongPassword!"
+      POSTGRES_DB: "TestDB"
+    ports:
+      - 5432:5432
+    volumes:
+      - "./docker/postgres/:/tmp/postgres"
     networks:
       - devnetwork
 
