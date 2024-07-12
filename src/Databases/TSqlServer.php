@@ -228,7 +228,7 @@ class TSqlServer implements TDatabaseInterface
 
         $messages = [];
         foreach ($errors as $error) {
-            $messages[] = $error["message"];
+            $messages[] = preg_replace("/\[([^]]+)\]/", "", $error["message"]);
         }
 
         return $messages;
