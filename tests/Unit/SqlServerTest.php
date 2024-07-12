@@ -166,7 +166,7 @@ class SqlServerTest extends TestCase
 
         self::$db->query("NOT A VALID QUERY");
         $errors = self::$db->getErrors();
-        $this->assertStringContainsString("Incorrect syntax", (string) $errors);
+        $this->assertStringContainsString("Incorrect syntax", $errors[0]);
     }
 
 

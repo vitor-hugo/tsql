@@ -164,12 +164,12 @@ class MySqlTest extends TestCase
     {
         self::$db->query("SELECT names, ages from TestTable");
         $errors = self::$db->getErrors();
-        $this->assertIsString($errors);
+        $this->assertIsArray($errors);
         $this->assertNotEmpty($errors);
 
         self::$db->query("NOT A VALID QUERY");
         $errors = self::$db->getErrors();
-        $this->assertStringContainsString("You have an error in your SQL syntax;", $errors);
+        $this->assertStringContainsString("You have an error in your SQL syntax;", $errors[0]);
     }
 
 
@@ -215,7 +215,7 @@ class MySqlTest extends TestCase
         $db = new TMySql();
         $db->connect("127.0.0.1", "TestDB", "super", "123456");
         $errors = $db->getErrors();
-        $this->assertStringContainsString("Access denied for user", $errors);
+        $this->assertStringContainsString("Access denied for user", $errors[0]);
         $this->assertFalse($db->isConnected());
     }
 }

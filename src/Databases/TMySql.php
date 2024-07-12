@@ -301,7 +301,7 @@ class TMySql implements TDatabaseInterface
     }
 
 
-    public function getErrors(): array|string
+    public function getErrors(): array
     {
         $messages = [];
 
@@ -321,6 +321,6 @@ class TMySql implements TDatabaseInterface
             $messages[] = $error[0]["error"];
         }
 
-        return count($messages) === 1 ? $messages[0] : $messages;
+        return $messages;
     }
 }

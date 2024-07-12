@@ -218,7 +218,7 @@ class TSqlServer implements TDatabaseInterface
     }
 
 
-    public function getErrors(): array|string
+    public function getErrors(): array
     {
         $errors = sqlsrv_errors(SQLSRV_ERR_ERRORS) ?? [];
 
@@ -226,15 +226,11 @@ class TSqlServer implements TDatabaseInterface
             return [];
         }
 
-        if (count($errors) === 1) {
-            return $errors[0]["message"];
-        }
-
         $messages = [];
         foreach ($errors as $error) {
             $messages[] = $error["message"];
         }
 
-        return count($messages) === 1 ? $messages[0] : $messages;
+        return $messages;
     }
 }
