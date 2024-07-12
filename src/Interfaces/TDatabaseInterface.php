@@ -109,7 +109,7 @@ interface TDatabaseInterface
 
     /**
      * Returns one or more triggered message errors.
-     * @return array|string array of strings or a single string
+     * @return array|string array of strings or a single string, if no errors returns an empty array.
      */
     public function getErrors(): array|string;
 }
