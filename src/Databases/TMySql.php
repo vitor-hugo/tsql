@@ -318,7 +318,9 @@ class TMySql implements TDatabaseInterface
         }
 
         foreach ($errors as $error) {
-            $messages[] = $error[0]["error"];
+            if ($error) {
+                $messages[] = $error[0]["error"];
+            }
         }
 
         return $messages;
