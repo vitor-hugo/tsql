@@ -2,8 +2,8 @@
 
 namespace Tests\Integration\Contracts;
 
-use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\Attributes\TestDox;
+use PHPUnit\Framework\Attributes\WithoutErrorHandler;
 use PHPUnit\Framework\TestCase;
 use Torugo\Sql\TSql;
 
@@ -183,6 +183,7 @@ class BaseIntegrationTestCase extends TestCase
     }
 
 
+    #[WithoutErrorHandler()]
     public function testShouldThrowExceptionWhenQueryLogFileDoesNotExist()
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -191,6 +192,7 @@ class BaseIntegrationTestCase extends TestCase
     }
 
 
+    #[WithoutErrorHandler()]
     public function testShouldThrowExceptionWhenErrorLogFileDoesNotExist()
     {
         $this->expectException(\InvalidArgumentException::class);
