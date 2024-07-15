@@ -66,7 +66,6 @@ class TMySql implements TDatabaseInterface
 
         try {
             $this->connection = new \mysqli($address, $user, $password, $database, $port);
-            // $this->connection = mysqli_connect($address, $database, $user, $password, $port);
         } catch (\Throwable $_) {
             return false;
         }
