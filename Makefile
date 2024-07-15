@@ -10,8 +10,9 @@ help:
 
 start-server:
 	clear
+	@echo "Initializing database servers, this operation may take a while..."
 	@docker compose up -d
-	@sleep 30
+	@sleep 20
 	@$(MAKE) init-db
 
 
@@ -29,21 +30,19 @@ down-server:
 	@docker compose down -v
 
 test:
-ifeq ($(shell docker ps --format '{{.Names}}' | grep tsql-mssql), tsql-mssql)
+ifneq ($(shell docker ps --format '{{.Names}}' | grep tsql-mssql), tsql-mssql)
+	@$(MAKE) start-server
+endif
 	clear
 	@vendor/bin/phpunit --display-errors --display-warnings --display-deprecations
-else
-	@echo "Test server not running, please run 'make start-server'"
-endif
 
 
 dox:
-ifeq ($(shell docker ps --format '{{.Names}}' | grep tsql-mssql), tsql-mssql)
+ifneq ($(shell docker ps --format '{{.Names}}' | grep tsql-mssql), tsql-mssql)
+	@$(MAKE) start-server
+endif
 	clear
 	@vendor/bin/phpunit --no-progress --testdox --display-errors --display-warnings --display-deprecations
-else
-	@echo "Test server not running, please run 'make start-server'"
-endif
 
 
 REPORT_PATH := $(firstword $(wildcard ./tests/report/html/index.html))
