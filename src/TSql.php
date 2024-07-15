@@ -4,6 +4,7 @@ namespace Torugo\Sql;
 
 use InvalidArgumentException;
 use Torugo\Sql\Databases\TMySql;
+use Torugo\Sql\Databases\TPostgres;
 use Torugo\Sql\Databases\TSqlServer;
 use Torugo\Sql\Enums\DBEngine;
 use Torugo\Sql\Interfaces\TDatabaseInterface;
@@ -62,7 +63,7 @@ class TSql
         $this->database = match ($this->dbEngine) {
             DBEngine::MariaDB => new TMySql(),
             DBEngine::MySql => new TMySql(),
-            DBEngine::Postgres => new TMySql(),
+            DBEngine::Postgres => new TPostgres(),
             DBEngine::SqlServer => new TSqlServer(),
         };
     }
