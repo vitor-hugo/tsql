@@ -5,6 +5,7 @@ namespace Tests\Integration\Contracts;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\WithoutErrorHandler;
 use PHPUnit\Framework\TestCase;
+use Torugo\Sql\Enums\DBEngine;
 use Torugo\Sql\TSql;
 
 class BaseIntegrationTestCase extends TestCase
@@ -236,12 +237,17 @@ class BaseIntegrationTestCase extends TestCase
 
     public function testShouldLogQueryInstructionsOnALogFile()
     {
-        $result = self::$tsql->query("SELECT name, age FROM IntegrationTable WHERE name like ?", ["%#1%"]);
+        if (self::$tsql->getDBEngine() === DBEngine::Postgres) {
+            $result = self::$tsql->query("SELECT name, age FROM IntegrationTable WHERE name like $1", ["%#1%"]);
+        } else {
+            $result = self::$tsql->query("SELECT name, age FROM IntegrationTable WHERE name like ?", ["%#1%"]);
+
+        }
         $this->assertTrue($result);
 
         $lines = file(self::QUERY_LOG_FILE);
         $this->assertMatchesRegularExpression("/^Date:\s[0-9\/\s:]+$/", $lines[0]);
-        $this->assertEquals("Query: SELECT name, age FROM IntegrationTable WHERE name like ?\n", $lines[1]);
+        $this->assertStringContainsString("Query: SELECT name, age FROM IntegrationTable WHERE name like", $lines[1]);
         $this->assertEquals("Params: %#1%\n", $lines[2]);
     }
 
