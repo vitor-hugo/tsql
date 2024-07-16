@@ -45,6 +45,15 @@ class TSql
 
 
     /**
+     * Returns the database engine
+     * @return DBEngine
+     */
+    public function getDBEngine(): DBEngine {
+        return $this->dbEngine;
+    }
+
+
+    /**
      * @param \Torugo\Sql\Enums\DBEngine $dbEngine
      */
     public function __construct(private DBEngine $dbEngine)
