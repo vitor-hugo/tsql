@@ -17,8 +17,8 @@ start-server:
 
 
 init-db:
-	@docker compose exec tsql-mssql bash -c "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P SuperStrongPassword! -i /tmp/sqlserver/create-database.sql"
-	@docker compose exec tsql-mssql bash -c "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P SuperStrongPassword! -i /tmp/sqlserver/create-table.sql"
+	@docker compose exec tsql-mssql bash -c "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P SuperStrongPassword! -i /tmp/sqlserver/create-database.sql -C"
+	@docker compose exec tsql-mssql bash -c "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P SuperStrongPassword! -i /tmp/sqlserver/create-table.sql -C"
 	@docker compose exec tsql-mysql bash -c "mysql -e \"source /tmp/mysql/create-table.sql\"  -usuper -p12345"
 	@docker compose exec tsql-mariadb bash -c "mariadb -e \"source /tmp/mysql/create-table.sql\"  -uroot -p12345"
 	@docker compose exec tsql-postgres bash -c "psql -U super -d TestDB -a -f /tmp/postgres/create-table.sql"
