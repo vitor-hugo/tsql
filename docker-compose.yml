@@ -9,7 +9,7 @@ services:
     restart: always
     environment:
       ACCEPT_EULA: "Y"
-      SA_PASSWORD: "SuperStrongPassword!"
+      MSSQL_SA_PASSWORD: "SuperStrongPassword!"
       MSSQL_PID: "Developer"
       MSSQL_COLLATION: "SQL_Latin1_General_CP1_CI_AI"
     ports:
