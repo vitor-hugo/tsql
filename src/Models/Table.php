@@ -4,14 +4,28 @@ namespace Torugo\Sql\Models;
 
 class Table
 {
-    public function __construct(public string $name, public string $alias = "")
-    {
+    /**
+     * @param string $name Table name.
+     * @param string $alias Table alias.
+     */
+    public function __construct(
+        private string $name,
+        private string $alias = ""
+    ) {
         $this->validateTableName($name);
+
         if (strlen($alias)) {
             $this->validateTableName($alias);
         }
     }
 
+
+    /**
+     * Checks if the table name has invalid characters
+     * @param string $name Table name
+     * @return string
+     * @throws \InvalidArgumentException
+     */
     private function validateTableName(string $name)
     {
         $name = trim($name);
@@ -23,9 +37,36 @@ class Table
         return $name;
     }
 
-    public function getName(): string
+
+    /**
+     * Returns the name of the table.
+     * @param bool $withAlias If [true] returns 'TableName as Alias'
+     * @return string
+     */
+    public function getName(bool $withAlias = false): string
     {
-        $alias = strlen($this->alias) ? " as {$this->alias}" : "";
-        return "{$this->name}$alias";
+        if ($withAlias && strlen($this->alias)) {
+            return "{$this->name} as {$this->alias}";
+        }
+
+        return $this->name;
+    }
+
+
+    public function setName(string $name): void
+    {
+        $this->name = $this->validateTableName($name);
+    }
+
+
+    public function getAlias(): string
+    {
+        return $this->alias;
+    }
+
+
+    public function setAlias(string $alias): void
+    {
+        $this->alias = $this->validateTableName($alias);
     }
 }
