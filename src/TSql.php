@@ -3,11 +3,13 @@
 namespace Torugo\Sql;
 
 use InvalidArgumentException;
+use Torugo\Sql\Builders\InsertBuilder;
 use Torugo\Sql\Databases\TMySql;
 use Torugo\Sql\Databases\TPostgres;
 use Torugo\Sql\Databases\TSqlServer;
 use Torugo\Sql\Enums\DBEngine;
 use Torugo\Sql\Interfaces\TDatabaseInterface;
+use Torugo\Sql\Models\Table;
 
 class TSql
 {
@@ -395,5 +397,27 @@ class TSql
 
         @fclose($file);
         return true;
+    }
+
+
+    /**
+     * Inserts a row of data in a given table
+     * @param \Torugo\Sql\Models\Table $table Table where data will be inserted
+     * @param array $fieldValue Key=>Pair array where the key must be equal to column names
+     * @return bool
+     * @throws \InvalidArgumentException
+     */
+    public function insert(Table $table, array $fieldValue): bool
+    {
+        $tableStructure = $this->getTableStructure($table->getName());
+
+        if ($tableStructure === false) {
+            throw new InvalidArgumentException("The table '{$table->getName()}' does not exists.");
+        }
+
+        $builder = new InsertBuilder($this->dbEngine, $tableStructure);
+        $query = $builder->build($table, $fieldValue);
+
+        return $this->query($query->sql, $query->values);
     }
 }
