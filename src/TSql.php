@@ -236,13 +236,7 @@ class TSql
 
     public function getTableStructure(string $tableName): array|false
     {
-        $structure = $this->database->getTableStructure($tableName);
-
-        if ($structure === false) {
-            return false;
-        }
-
-        return $structure;
+        return $this->database->getTableStructure($tableName);
     }
 
 
