@@ -2,10 +2,12 @@
 
 namespace Tests\Integration\Contracts;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\WithoutErrorHandler;
 use PHPUnit\Framework\TestCase;
 use Torugo\Sql\Enums\DBEngine;
+use Torugo\Sql\Models\Table;
 use Torugo\Sql\TSql;
 
 class BaseIntegrationTestCase extends TestCase
@@ -47,11 +49,33 @@ class BaseIntegrationTestCase extends TestCase
 
     public function testShouldInsertSomeData()
     {
-        $result = self::$tsql->query("INSERT INTO IntegrationTable (name, age) VALUES('Test Record #1', 40) ");
+        $table = new Table("IntegrationTable");
+
+        $payload = [
+            "name" => "Test Record #1",
+            "age" => 40
+        ];
+        $result = self::$tsql->insert($table, $payload);
         $this->assertTrue($result);
 
-        $result = self::$tsql->query("INSERT INTO IntegrationTable (name, age) VALUES('Test Record #2', 30) ");
+
+        $payload = [
+            "name" => "Test Record #2",
+            "age" => 30,
+            "xyz" => "xyz"
+        ];
+        $result = self::$tsql->insert($table, $payload);
         $this->assertTrue($result);
+    }
+
+
+    public function testShouldThrowWhenTryingToInsertOnNonExistentTable()
+    {
+        $table = new Table("IntegrationTableX");
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("The table 'IntegrationTableX' does not exists.");
+        $payload = ["name" => "Test Record #2", "age" => 30];
+        self::$tsql->insert($table, $payload);
     }
 
 
