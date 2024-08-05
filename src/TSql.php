@@ -48,7 +48,8 @@ class TSql
      * Returns the database engine
      * @return DBEngine
      */
-    public function getDBEngine(): DBEngine {
+    public function getDBEngine(): DBEngine
+    {
         return $this->dbEngine;
     }
 
