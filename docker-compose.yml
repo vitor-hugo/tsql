@@ -13,7 +13,7 @@ services:
       MSSQL_PID: "Developer"
       MSSQL_COLLATION: "SQL_Latin1_General_CP1_CI_AI"
     ports:
-      - 1433:1433
+      - 1434:1433
     volumes:
       - "./docker/sqlserver/:/tmp/sqlserver"
     networks:
@@ -34,7 +34,7 @@ services:
       MYSQL_ONETIME_PASSWORD:
       MYSQL_RANDOM_ROOT_PASSWORD: no
     ports:
-      - 3306:3306
+      - 3307:3306
     command:
       [
         "mysqld",
@@ -58,7 +58,7 @@ services:
       MARIADB_ROOT_PASSWORD: 12345
       MARIADB_DATABASE: TestDB
     ports:
-      - 3307:3306
+      - 3308:3306
     command:
       [
         "--lower_case_table_names=1",
@@ -83,7 +83,7 @@ services:
       POSTGRES_PASSWORD: "SuperStrongPassword!"
       POSTGRES_DB: "TestDB"
     ports:
-      - 5432:5432
+      - 5433:5432
     volumes:
       - "./docker/postgres/:/tmp/postgres"
     networks:
