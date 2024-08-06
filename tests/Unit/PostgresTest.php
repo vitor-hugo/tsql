@@ -36,7 +36,7 @@ class PostgresTest extends TestCase
             "super",
             "SuperStrongPassword!",
             "UTF-8",
-            5432
+            5433
         );
         $this->assertTrue(self::$db->isConnected());
     }
@@ -44,7 +44,14 @@ class PostgresTest extends TestCase
 
     public function testShouldCheckIfTableExists()
     {
-        self::$db->connect("127.0.0.1", "TestDB", "super", "SuperStrongPassword!", "UTF-8", 5432);
+        self::$db->connect(
+            "127.0.0.1",
+            "TestDB",
+            "super",
+            "SuperStrongPassword!",
+            "UTF-8",
+            5433
+        );
 
         $this->assertTrue(self::$db->tableExists("TestTable"));
         $this->assertFalse(self::$db->tableExists("NotExists"));
