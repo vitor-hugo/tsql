@@ -27,7 +27,14 @@ class SqlServerTest extends TestCase
 
     public function testShouldConnectToDatabase()
     {
-        self::$db->connect("localhost", "TestDB", "SA", "SuperStrongPassword!");
+        self::$db->connect(
+            "localhost",
+            "TestDB",
+            "SA",
+            "SuperStrongPassword!",
+            "UTF-8",
+            1434
+        );
         $this->assertTrue(self::$db->isConnected());
     }
 
