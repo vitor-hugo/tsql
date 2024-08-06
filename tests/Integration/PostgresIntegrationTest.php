@@ -9,7 +9,7 @@ use Torugo\Sql\Enums\DBEngine;
 use Torugo\Sql\TSql;
 
 #[Group("Integration")]
-#[Group("TSql")]
+#[Group("TSql3")]
 #[TestDox("TSql: Postgres Integration Tests")]
 class PostgresIntegrationTest extends BaseIntegrationTestCase
 {
@@ -22,7 +22,7 @@ class PostgresIntegrationTest extends BaseIntegrationTestCase
             "super",
             "SuperStrongPassword!",
             "UTF-8",
-            5432
+            5433
         ];
         self::$tsql->connect(...self::$connectionParams);
     }
