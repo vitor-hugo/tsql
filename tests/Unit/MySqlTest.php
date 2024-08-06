@@ -28,7 +28,14 @@ class MySqlTest extends TestCase
 
     public function testShouldConnectToDatabase()
     {
-        self::$db->connect("127.0.0.1", "TestDB", "super", "12345");
+        self::$db->connect(
+            "127.0.0.1",
+            "TestDB",
+            "super",
+            "12345",
+            "UTF-8",
+            3307
+        );
         $this->assertTrue(self::$db->isConnected());
     }
 
