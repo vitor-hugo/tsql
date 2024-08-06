@@ -118,7 +118,14 @@ class TSql
         string $characterSet = "UTF-8",
         ?int $port = null
     ): bool {
-        $connection = $this->database->connect($address, $database, $user, $password, $characterSet);
+        $connection = $this->database->connect(
+            $address,
+            $database,
+            $user,
+            $password,
+            $characterSet,
+            $port
+        );
 
         if ($connection === false) {
             $this->handleError();
