@@ -2,6 +2,7 @@
 
 namespace Torugo\Sql\Databases;
 
+use PHPUnit\Framework\Constraint\IsEmpty;
 use Torugo\Sql\Interfaces\TDatabaseInterface;
 
 class TPostgres implements TDatabaseInterface
@@ -30,7 +31,7 @@ class TPostgres implements TDatabaseInterface
         string $user = "",
         string $password = "",
         string $characterSet = "UTF-8",
-        ?int $port = null
+        ?int $port = 5432
     ): bool {
         $this->connection = false;
         $port ??= 5432;
@@ -46,7 +47,7 @@ class TPostgres implements TDatabaseInterface
 
         $connectionString = implode(" ", $connectionParams);
         $this->connection = @pg_connect($connectionString);
-        if ( $this->connection === false) {
+        if ($this->connection === false) {
             $this->errorMessages[] = "Could not connect to $database on $address";
         }
 
