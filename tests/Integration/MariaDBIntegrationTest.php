@@ -9,15 +9,21 @@ use Torugo\Sql\Enums\DBEngine;
 use Torugo\Sql\TSql;
 
 #[Group("Integration")]
-#[Group("TSql")]
+#[Group("TSql1")]
 #[TestDox("TSql: MariaDB Integration Tests")]
 class MariaDBIntegrationTest extends BaseIntegrationTestCase
 {
     public static function setUpBeforeClass(): void
     {
-        parent::setUpBeforeClass();
         self::$tsql = new TSql(DBEngine::MariaDB);
-        self::$connectionParams = ["127.0.0.1", "TestDB", "super", "12345", "UTF-8", 3307];
+        self::$connectionParams = [
+            "127.0.0.1",
+            "TestDB",
+            "root",
+            "12345",
+            "UTF-8",
+            3308
+        ];
         self::$tsql->connect(...self::$connectionParams);
     }
 
