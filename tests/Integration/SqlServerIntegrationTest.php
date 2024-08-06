@@ -9,15 +9,21 @@ use Torugo\Sql\Enums\DBEngine;
 use Torugo\Sql\TSql;
 
 #[Group("Integration")]
-#[Group("TSql")]
+#[Group("TSql4")]
 #[TestDox("TSql: SqlServer Integration Tests")]
 class SqlServerIntegrationTest extends BaseIntegrationTestCase
 {
     public static function setUpBeforeClass(): void
     {
         self::$tsql = new TSql(DBEngine::SqlServer);
-        self::$connectionParams = ["localhost", "TestDB", "SA", "SuperStrongPassword!"];
-        self::$tsql->connect(...self::$connectionParams);
+        self::$connectionParams = [
+            "localhost",
+            "TestDB",
+            "SA",
+            "SuperStrongPassword!",
+            "UTF-8",
+            1434
+        ];
     }
 
 
