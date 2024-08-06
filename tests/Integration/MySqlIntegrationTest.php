@@ -9,14 +9,21 @@ use Torugo\Sql\Enums\DBEngine;
 use Torugo\Sql\TSql;
 
 #[Group("Integration")]
-#[Group("TSql")]
+#[Group("TSql2")]
 #[TestDox("TSql: MySql Integration Tests")]
 class MySqlIntegrationTest extends BaseIntegrationTestCase
 {
     public static function setUpBeforeClass(): void
     {
         self::$tsql = new TSql(DBEngine::MySql);
-        self::$connectionParams = ["127.0.0.1", "TestDB", "super", "12345"];
+        self::$connectionParams = [
+            "127.0.0.1",
+            "TestDB",
+            "super",
+            "12345",
+            "UTF-8",
+            3307
+        ];
         self::$tsql->connect(...self::$connectionParams);
     }
 
