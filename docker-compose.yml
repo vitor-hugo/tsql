@@ -6,7 +6,6 @@ services:
     platform: linux/amd64
     stdin_open: true
     tty: true
-    restart: always
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: "SuperStrongPassword!"
@@ -25,7 +24,6 @@ services:
     platform: linux/amd64
     stdin_open: true
     tty: true
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: TestDB
@@ -53,7 +51,6 @@ services:
     platform: linux/amd64
     stdin_open: true
     tty: true
-    restart: always
     environment:
       MARIADB_ROOT_PASSWORD: 12345
       MARIADB_DATABASE: TestDB
@@ -77,7 +74,6 @@ services:
     platform: linux/amd64
     stdin_open: true
     tty: true
-    restart: always
     environment:
       POSTGRES_USER: "super"
       POSTGRES_PASSWORD: "SuperStrongPassword!"
