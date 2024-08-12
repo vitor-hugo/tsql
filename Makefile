@@ -29,6 +29,10 @@ stop-server:
 down-server:
 	@docker compose down -v
 
+start: start-server
+stop: stop-server
+down: down-server
+
 test:
 ifneq ($(shell docker ps --format '{{.Names}}' | grep tsql-mssql), tsql-mssql)
 	@$(MAKE) start-server
