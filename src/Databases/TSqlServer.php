@@ -220,7 +220,7 @@ class TSqlServer implements TDatabaseInterface
 
     public function getErrors(): array
     {
-        $errors = sqlsrv_errors(SQLSRV_ERR_ERRORS) ?? [];
+        $errors = sqlsrv_errors() ?? [];
 
         if (count($errors) === 0) {
             return [];
