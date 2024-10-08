@@ -2,7 +2,6 @@
 
 namespace Torugo\Sql\Databases;
 
-use PHPUnit\Framework\Constraint\IsEmpty;
 use Torugo\Sql\Interfaces\TDatabaseInterface;
 
 class TPostgres implements TDatabaseInterface
