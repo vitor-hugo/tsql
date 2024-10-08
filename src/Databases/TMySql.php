@@ -65,7 +65,15 @@ class TMySql implements TDatabaseInterface
         $this->connection = false;
 
         try {
-            $this->connection = new \mysqli($address, $user, $password, $database, $port);
+            $this->connection = new \mysqli(
+                $address,
+                $user,
+                $password,
+                $database,
+                $port
+            );
+
+            $this->connection->set_charset($characterSet);
         } catch (\Throwable $_) {
             return false;
         }
@@ -247,8 +255,11 @@ class TMySql implements TDatabaseInterface
         $fieldName = mb_strtoupper(trim($fieldName));
         $tableName = mb_strtoupper(trim($tableName));
 
-        $sql = "SELECT TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS ";
-        $sql .= "WHERE UPPER(TABLE_SCHEMA)=? AND UPPER(TABLE_NAME)=? AND UPPER(COLUMN_NAME)=?";
+        $sql = "SELECT TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME";
+        $sql .= " FROM INFORMATION_SCHEMA.COLUMNS";
+        $sql .= " WHERE UPPER(TABLE_SCHEMA)=? AND UPPER(TABLE_NAME)=?";
+        $sql .= " AND UPPER(COLUMN_NAME)=?";
+
         $result = $this->query($sql, [$database, $tableName, $fieldName]);
         $numRows = $this->numRows();
 
