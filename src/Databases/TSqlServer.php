@@ -16,6 +16,21 @@ class TSqlServer implements TDatabaseInterface
      */
     private $resultSet = false;
 
+    /**
+     * @var int
+     */
+    private int $loginTimeout = 10;
+
+    /**
+     * Sets the login timeout
+     * @param int $time
+     * @return void
+     */
+    public function setLoginTimeout(int $time): void
+    {
+        $this->loginTimeout = $time;
+    }
+
 
     public function isConnected(): bool
     {
@@ -41,10 +56,10 @@ class TSqlServer implements TDatabaseInterface
             "Database" => $database,
             "UID" => $user,
             "PWD" => $password,
-            "CharacterSet" => "UTF-8",
+            "CharacterSet" => $characterSet,
             "ConnectionPooling" => "1",
             "MultipleActiveResultSets" => "0",
-            "LoginTimeout" => 0,
+            "LoginTimeout" => $this->loginTimeout,
             "TrustServerCertificate" => "1",
         ];
 
