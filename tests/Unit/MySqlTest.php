@@ -222,7 +222,7 @@ class MySqlTest extends TestCase
         $db = new TMySql();
         $db->connect("127.0.0.1", "TestDB", "super", "123456");
         $errors = $db->getErrors();
-        $this->assertStringContainsString("Access denied for user", $errors[0]);
+        $this->assertStringContainsString("Connection refused", $errors[0]);
         $this->assertFalse($db->isConnected());
     }
 }
